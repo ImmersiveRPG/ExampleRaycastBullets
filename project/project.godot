@@ -38,7 +38,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="RaycastBullets"
+config/name="ExampleRaycastBullets"
 run/main_scene="res://src/World/World.tscn"
 config/icon="res://icon.png"
 
