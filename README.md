@@ -1,5 +1,3 @@
-# RaycastBullets
+# Example Raycast Bullets
 
-# TODO
-
-* Change bullet raycast to not need to be backward
+Example of glowing ricocheting raycast bullets in Godot
