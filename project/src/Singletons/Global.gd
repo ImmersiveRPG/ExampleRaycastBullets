@@ -23,8 +23,13 @@ onready var _scene_bullet := ResourceLoader.load("res://src/Bullet/Bullet.tscn")
 onready var _scene_bullet_glow := ResourceLoader.load("res://src/BulletGlow/BulletGlow.tscn")
 onready var _scene_bullet_spark := ResourceLoader.load("res://src/BulletSpark/BulletSpark.tscn")
 
-func create_bullet(bullet_type : int) -> Bullet:
-	return _scene_bullet.instance()._load_db_values(bullet_type)
+func create_bullet(parent : Node, start_pos : Vector3, target_pos : Vector3, bullet_type : int) -> void:
+	var bullet = _scene_bullet.instance()._load_db_values(bullet_type)
+	parent.add_child(bullet)
+	bullet.global_transform.origin = start_pos
+	bullet.look_at(target_pos, Vector3.UP)
+	bullet.start()
+	bullet.setup_glow(bullet.global_transform.origin)
 
 func create_bullet_glow() -> BulletGlow:
 	return _scene_bullet_glow.instance()

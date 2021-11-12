@@ -11,9 +11,13 @@ var _speed := -1.0
 var _max_distance := -1.0
 var _ignore_collision_distance := 0.0
 var _glow = null
+var _velocity : Vector3
 
 var _total_distance := 0.0
 onready var _ray = $RayCast
+
+func start() -> void:
+	_velocity = self.transform.basis.z * _speed
 
 func _load_db_values(bullet_type : int) -> Bullet:
 	_bullet_type = bullet_type
@@ -39,7 +43,7 @@ func setup_glow(pos : Vector3) -> void:
 func _physics_process(delta : float) -> void:
 	# Move the bullet
 	var distance := _speed * delta
-	self.transform.origin -= self.transform.basis.z * distance
+	self.transform.origin -= _velocity * delta
 	#MarkerCube.add(self.transform.origin, Color.blue)
 
 	# Gravity
@@ -50,10 +54,10 @@ func _physics_process(delta : float) -> void:
 	# get the target closest to the bullet start position.
 	# Also make the ray at least 1 meter long
 	if distance > 1.0:
-		_ray.cast_to.z = distance
+		_ray.cast_to.z = -distance
 		_ray.transform.origin.z = distance
 	else:
-		_ray.cast_to.z = 1.0
+		_ray.cast_to.z = -1.0
 		_ray.transform.origin.z = 1.0
 
 	if _ignore_collision_distance > 0.0:
@@ -85,9 +89,10 @@ func _physics_process(delta : float) -> void:
 				# Remove 20% of the bullet's speed
 				_speed -= (_speed * 0.20)
 
-				# FIXME: This is using the wrong impact angle
+				# Bounce
 				var norm = _ray.get_collision_normal()
-				self.rotation -= self.rotation.bounce(-norm).normalized()
+				_velocity = _velocity.bounce(norm)
+				self.look_at(global_transform.origin - _velocity, Vector3.UP)
 			else:
 				self.queue_free()
 		else:

@@ -5,12 +5,9 @@
 extends RigidBody
 
 
-func fire(target : Vector3) -> void:
+func fire(target_pos : Vector3) -> void:
 	var bullet_type = Global.BulletType._308
+	var start_pos = $BulletStartPosition.global_transform.origin
+	Global.create_bullet(Global._root_node, start_pos, target_pos, bullet_type)
 
-	var bullet := Global.create_bullet(bullet_type)
-	Global._root_node.add_child(bullet)
-	bullet.global_transform.origin = $BulletStartPosition.global_transform.origin
-	bullet.look_at(target, Vector3.UP)
-	bullet.setup_glow(bullet.global_transform.origin)
 
