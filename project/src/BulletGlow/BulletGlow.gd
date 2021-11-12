@@ -17,7 +17,8 @@ func _physics_process(delta : float) -> void:
 		if distance > 1.0:
 			_prev_pos = position
 
-			_points.append(position)
+			# Save position as local space
+			_points.append(position - self.global_transform.origin)
 
 			if _points.size() > 5:
 				_points.pop_front()
@@ -29,18 +30,13 @@ func _physics_process(delta : float) -> void:
 			self.queue_free()
 
 func _process(delta : float) -> void:
-	# Convert points to local space
-	var local_points := []
-	for point in _points:
-		local_points.append(point - global_transform.origin)
-
 	# Draw the line
 	clear()
 	begin(1, null)
-	for i in range(local_points.size()):
-		if i + 1 < local_points.size():
-			var a = local_points[i]
-			var b = local_points[i + 1]
+	for i in _points.size():
+		if i + 1 < _points.size():
+			var a = _points[i]
+			var b = _points[i + 1]
 			add_vertex(a)
 			add_vertex(b)
 	end()
