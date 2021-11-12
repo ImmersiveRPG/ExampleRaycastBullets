@@ -84,14 +84,6 @@ Quit={
 3d_physics/layer_1="terrain"
 3d_physics/layer_2="item"
 3d_physics/layer_3="player"
-3d_physics/layer_4="enemy"
-3d_physics/layer_5="storage"
-3d_physics/layer_6="furniture"
-3d_physics/layer_7="building"
-3d_physics/layer_8="interact_point"
-3d_physics/layer_9="vehicle"
-3d_physics/layer_10="destructible"
-3d_physics/layer_11="smell"
 
 [physics]
 

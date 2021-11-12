@@ -9,6 +9,7 @@
 material = ExtResource( 2 )
 
 [node name="SteelBlock" type="RigidBody" groups=["item"]]
+collision_mask = 7
 mode = 1
 mass = 1000.0
 script = ExtResource( 1 )

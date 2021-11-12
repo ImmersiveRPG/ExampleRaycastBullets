@@ -36,14 +36,6 @@ enum Layers {
 	terrain,
 	item,
 	player,
-	enemy,
-	storage,
-	furniture,
-	building,
-	interact_point,
-	vehicle,
-	destructible,
-	smell,
 }
 
 enum BulletType {
