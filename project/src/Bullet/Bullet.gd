@@ -7,7 +7,6 @@ class_name Bullet
 
 var _bullet_type := -1
 var _mass := -1.0
-var _speed := -1.0
 var _max_distance := -1.0
 var _ignore_collision_distance := 0.0
 var _glow = null
@@ -16,17 +15,15 @@ var _velocity : Vector3
 var _total_distance := 0.0
 onready var _ray = $RayCast
 
-func start() -> void:
-	_velocity = self.transform.basis.z * _speed
 
-func _load_db_values(bullet_type : int) -> Bullet:
+func load_db_values(bullet_type : int):
 	_bullet_type = bullet_type
 	var entry = Global.DB["Bullets"][_bullet_type]
 	_mass = entry["mass"]
-	_speed = entry["speed"]
 	_max_distance = entry["max_distance"]
+	var speed = entry["speed"]
+	_velocity = self.transform.basis.z * speed
 	#print("Loaded values for %s" % self.name)
-	return self
 
 func _exit_tree() -> void:
 	if _glow:
@@ -42,7 +39,7 @@ func setup_glow(pos : Vector3) -> void:
 
 func _physics_process(delta : float) -> void:
 	# Move the bullet
-	var distance := _speed * delta
+	var distance := _velocity.length() * delta
 	self.transform.origin -= _velocity * delta
 	#MarkerCube.add(self.transform.origin, Color.blue)
 
@@ -78,7 +75,7 @@ func _physics_process(delta : float) -> void:
 		self.get_parent().add_child(bullet_spark)
 		bullet_spark.global_transform.origin = _ray.get_collision_point()
 
-		var force := _mass * _speed
+		var force := _mass * _velocity.length()
 
 		if collider.is_in_group("item"):
 			# Nudge the object
@@ -87,7 +84,7 @@ func _physics_process(delta : float) -> void:
 			# Ricochet the bullet if the item is steel or concrete
 			if collider._element in [Global.Element.Steel, Global.Element.Concrete]:
 				# Remove 20% of the bullet's speed
-				_speed -= (_speed * 0.20)
+				_velocity -= (_velocity * 0.20)
 
 				# Bounce
 				var norm = _ray.get_collision_normal()
