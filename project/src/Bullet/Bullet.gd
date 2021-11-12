@@ -16,26 +16,10 @@ var _total_distance := 0.0
 onready var _ray = $RayCast
 
 
-func load_db_values(bullet_type : int):
-	_bullet_type = bullet_type
-	var entry = Global.DB["Bullets"][_bullet_type]
-	_mass = entry["mass"]
-	_max_distance = entry["max_distance"]
-	var speed = entry["speed"]
-	_velocity = self.transform.basis.z * speed
-	#print("Loaded values for %s" % self.name)
-
 func _exit_tree() -> void:
 	if _glow:
 		_glow.queue_free()
 		_glow = null
-
-func setup_glow(pos : Vector3) -> void:
-	# Add bullet glow
-	_glow = Global.create_bullet_glow()
-	Global._root_node.add_child(_glow)
-	_glow.global_transform.origin = pos
-	_glow.update(pos)
 
 func _physics_process(delta : float) -> void:
 	# Move the bullet
@@ -101,3 +85,19 @@ func _physics_process(delta : float) -> void:
 	# Add bullet glow
 	if _glow:
 		_glow.update(self.global_transform.origin)
+
+func load_db_values(bullet_type : int):
+	_bullet_type = bullet_type
+	var entry = Global.DB["Bullets"][_bullet_type]
+	_mass = entry["mass"]
+	_max_distance = entry["max_distance"]
+	var speed = entry["speed"]
+	_velocity = self.transform.basis.z * speed
+	#print("Loaded values for %s" % self.name)
+
+func setup_glow(pos : Vector3) -> void:
+	# Add bullet glow
+	_glow = Global.create_bullet_glow()
+	Global._root_node.add_child(_glow)
+	_glow.global_transform.origin = pos
+	_glow.update(pos)
