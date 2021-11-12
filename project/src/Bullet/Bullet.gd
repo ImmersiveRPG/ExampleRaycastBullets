@@ -16,10 +16,6 @@ var _total_distance := 0.0
 onready var _ray = $RayCast
 
 
-func _exit_tree() -> void:
-	if _glow:
-		_glow.queue_free()
-		_glow = null
 
 func _physics_process(delta : float) -> void:
 	# Move the bullet
@@ -80,11 +76,7 @@ func _physics_process(delta : float) -> void:
 	if _total_distance > _max_distance:
 		self.queue_free()
 
-	# Update bullet glow
-	if _glow:
-		_glow.update(self.global_transform.origin)
-
-func start(bullet_type : int):
+func start(bullet_type : int) -> void:
 	# Get the bullet info from the database
 	_bullet_type = bullet_type
 	var entry = Global.DB["Bullets"][_bullet_type]
@@ -98,4 +90,4 @@ func start(bullet_type : int):
 	_glow = Global._scene_bullet_glow.instance()
 	Global._root_node.add_child(_glow)
 	_glow.global_transform.origin = self.global_transform.origin
-	_glow.update(self.global_transform.origin)
+	_glow.start(self)
