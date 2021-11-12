@@ -41,7 +41,6 @@ func _physics_process(delta : float) -> void:
 	# Move the bullet
 	var distance := _velocity.length() * delta
 	self.transform.origin -= _velocity * delta
-	#MarkerCube.add(self.transform.origin, Color.blue)
 
 	# Gravity
 	#self.transform.origin.y -= 9.8 * delta
@@ -75,10 +74,9 @@ func _physics_process(delta : float) -> void:
 		self.get_parent().add_child(bullet_spark)
 		bullet_spark.global_transform.origin = _ray.get_collision_point()
 
-		var force := _mass * _velocity.length()
-
 		if collider.is_in_group("item"):
 			# Nudge the object
+			var force := _mass * _velocity.length()
 			collider.emit_signal("apply_force", -self.transform.basis.z, force)
 
 			# Ricochet the bullet if the item is steel or concrete
