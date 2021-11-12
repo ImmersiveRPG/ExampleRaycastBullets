@@ -54,9 +54,7 @@ func _physics_process(delta : float) -> void:
 		self.global_transform.origin = _ray.get_collision_point()
 
 		# Add bullet spark
-		var bullet_spark = Global.create_bullet_spark()
-		self.get_parent().add_child(bullet_spark)
-		bullet_spark.global_transform.origin = _ray.get_collision_point()
+		Global.create_bullet_spark(self.global_transform.origin)
 
 		if collider.is_in_group("item"):
 			# Nudge the object
@@ -82,11 +80,12 @@ func _physics_process(delta : float) -> void:
 	if _total_distance > _max_distance:
 		self.queue_free()
 
-	# Add bullet glow
+	# Update bullet glow
 	if _glow:
 		_glow.update(self.global_transform.origin)
 
-func load_db_values(bullet_type : int):
+func start(bullet_type : int):
+	# Get the bullet info from the database
 	_bullet_type = bullet_type
 	var entry = Global.DB["Bullets"][_bullet_type]
 	_mass = entry["mass"]
@@ -95,9 +94,8 @@ func load_db_values(bullet_type : int):
 	_velocity = self.transform.basis.z * speed
 	#print("Loaded values for %s" % self.name)
 
-func setup_glow(pos : Vector3) -> void:
 	# Add bullet glow
-	_glow = Global.create_bullet_glow()
+	_glow = Global._scene_bullet_glow.instance()
 	Global._root_node.add_child(_glow)
-	_glow.global_transform.origin = pos
-	_glow.update(pos)
+	_glow.global_transform.origin = self.global_transform.origin
+	_glow.update(self.global_transform.origin)

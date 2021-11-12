@@ -28,14 +28,12 @@ func create_bullet(parent : Node, start_pos : Vector3, target_pos : Vector3, bul
 	parent.add_child(bullet)
 	bullet.global_transform.origin = start_pos
 	bullet.look_at(target_pos, Vector3.UP)
-	bullet.load_db_values(bullet_type)
-	bullet.setup_glow(bullet.global_transform.origin)
+	bullet.start(bullet_type)
 
-func create_bullet_glow() -> BulletGlow:
-	return _scene_bullet_glow.instance()
-
-func create_bullet_spark() -> BulletSpark:
-	return _scene_bullet_spark.instance()
+func create_bullet_spark(pos : Vector3) -> void:
+	var spark = _scene_bullet_spark.instance()
+	Global._root_node.add_child(spark)
+	spark.global_transform.origin = pos
 
 enum Layers {
 	terrain,
