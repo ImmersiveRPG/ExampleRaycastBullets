@@ -7,9 +7,10 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.0291551, 0.120722, 0.605466 )
 
-[node name="HuntingRifle" type="RigidBody" groups=["item", "nukable"]]
+[node name="HuntingRifle" type="RigidBody" groups=["item"]]
 collision_layer = 2
 collision_mask = 7
+mass = 0.714286
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -82,3 +83,5 @@ material = ExtResource( 3 )
 
 [node name="BulletStartPosition" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0601636, 0.0381525 )
+
+[connection signal="apply_force" from="." to="." method="_on_apply_force"]

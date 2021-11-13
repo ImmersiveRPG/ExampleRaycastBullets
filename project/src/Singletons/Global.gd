@@ -57,8 +57,7 @@ enum Element {
 	Glass,
 	Plastic,
 	Rubber,
-	CardBoard,
-	Organic,
+	Aluminum,
 }
 
 var DB = {
