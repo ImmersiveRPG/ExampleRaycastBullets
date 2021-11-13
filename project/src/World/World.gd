@@ -15,3 +15,5 @@ func _ready() -> void:
 func _input(event) -> void:
 	if Input.is_action_just_pressed("Quit"):
 		self.get_tree().quit()
+	elif Input.is_action_just_released("ToggleFullScreen"):
+		OS.window_fullscreen = not OS.window_fullscreen
