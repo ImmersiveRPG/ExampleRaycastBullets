@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://javv3h067rio"]
 
 [ext_resource type="Script" path="res://src/BulletGlow/BulletGlow.gd" id="1"]
-[ext_resource type="Material" path="res://src/BulletGlow/glow_material.tres" id="2"]
+[ext_resource type="Material" uid="uid://cd6v0qe102ox" path="res://src/BulletGlow/glow_material.tres" id="2"]
 
 [node name="BulletGlow" type="ImmediateMesh"]
 _import_path = NodePath("")

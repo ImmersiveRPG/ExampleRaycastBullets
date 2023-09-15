@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://f7okevds0rhn"]
 
 [ext_resource type="Script" path="res://src/Items/HuntingRifle/HuntingRifle.gd" id="2"]
-[ext_resource type="Material" path="res://src/Items/HuntingRifle/material_wood.tres" id="3"]
-[ext_resource type="Material" path="res://src/Items/HuntingRifle/material_metal.tres" id="5"]
+[ext_resource type="Material" uid="uid://ccwj1w2u3aw2x" path="res://src/Items/HuntingRifle/material_wood.tres" id="3"]
+[ext_resource type="Material" uid="uid://b56vdlhavrckn" path="res://src/Items/HuntingRifle/material_metal.tres" id="5"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(0.0291551, 0.120722, 0.605466)

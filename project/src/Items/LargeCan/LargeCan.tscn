@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8iydcjw3nhvq"]
 
 [ext_resource type="Script" path="res://src/Items/LargeCan/LargeCan.gd" id="1"]
-[ext_resource type="Material" path="res://src/Items/LargeCan/material.tres" id="2"]
+[ext_resource type="Material" uid="uid://dtcy3c7wrj32k" path="res://src/Items/LargeCan/material.tres" id="2"]
 
 [sub_resource type="CylinderShape3D" id="1"]
 height = 1.2

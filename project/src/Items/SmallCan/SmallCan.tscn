@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpw47tjkojlej"]
 
 [ext_resource type="Script" path="res://src/Items/SmallCan/SmallCan.gd" id="1"]
-[ext_resource type="Material" path="res://src/Items/SmallCan/material.tres" id="2"]
+[ext_resource type="Material" uid="uid://bmt25hgf22xxj" path="res://src/Items/SmallCan/material.tres" id="2"]
 
 [sub_resource type="BoxShape3D" id="3"]
 size = Vector3(0.25, 0.5, 0.25)

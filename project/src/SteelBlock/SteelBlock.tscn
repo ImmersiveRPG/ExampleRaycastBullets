@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://wfnbj7tws3du"]
 
 [ext_resource type="Script" path="res://src/SteelBlock/SteelBlock.gd" id="1"]
-[ext_resource type="Material" path="res://src/SteelBlock/material.tres" id="2"]
+[ext_resource type="Material" uid="uid://n6fd36c2u1s1" path="res://src/SteelBlock/material.tres" id="2"]
 
 [sub_resource type="BoxShape3D" id="1"]
 
