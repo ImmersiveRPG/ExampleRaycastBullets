@@ -1,8 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://javv3h067rio"]
 
-[ext_resource path="res://src/BulletGlow/BulletGlow.gd" type="Script" id=1]
-[ext_resource path="res://src/BulletGlow/glow_material.tres" type="Material" id=2]
+[ext_resource type="Script" path="res://src/BulletGlow/BulletGlow.gd" id="1"]
+[ext_resource type="Material" path="res://src/BulletGlow/glow_material.tres" id="2"]
 
 [node name="BulletGlow" type="ImmediateMesh"]
-material_override = ExtResource( 2 )
-script = ExtResource( 1 )
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
+material_override = ExtResource("2")
+script = ExtResource("1")

@@ -1,25 +1,24 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://vaboepuwlkbk"]
 
-[ext_resource path="res://assets/sand.png" type="Texture2D" id=1]
+[ext_resource type="Texture2D" uid="uid://dhqndtmla02r4" path="res://assets/sand.png" id="1"]
 
-[sub_resource type="BoxShape3D" id=1]
-size = Vector3( 500, 25, 500 )
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(500, 25, 500)
 
-[sub_resource type="StandardMaterial3D" id=4]
-albedo_texture = ExtResource( 1 )
+[sub_resource type="StandardMaterial3D" id="4"]
+albedo_texture = ExtResource("1")
 uv1_triplanar = true
 
-[sub_resource type="BoxMesh" id=3]
-material = SubResource( 4 )
-size = Vector3( 1000, 50, 1000 )
+[sub_resource type="BoxMesh" id="3"]
+material = SubResource("4")
+size = Vector3(1000, 50, 1000)
 
 [node name="Floor" type="StaticBody3D"]
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0 )
-shape = SubResource( 1 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
+shape = SubResource("1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource( 3 )
-material/0 = null
+mesh = SubResource("3")

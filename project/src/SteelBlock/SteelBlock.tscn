@@ -1,25 +1,23 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://wfnbj7tws3du"]
 
-[ext_resource path="res://src/SteelBlock/SteelBlock.gd" type="Script" id=1]
-[ext_resource path="res://src/SteelBlock/material.tres" type="Material" id=2]
+[ext_resource type="Script" path="res://src/SteelBlock/SteelBlock.gd" id="1"]
+[ext_resource type="Material" path="res://src/SteelBlock/material.tres" id="2"]
 
-[sub_resource type="BoxShape3D" id=1]
+[sub_resource type="BoxShape3D" id="1"]
 
-[sub_resource type="BoxMesh" id=2]
-material = ExtResource( 2 )
+[sub_resource type="BoxMesh" id="2"]
+material = ExtResource("2")
 
 [node name="SteelBlock" type="RigidBody3D" groups=["item"]]
 collision_mask = 7
-mode = 1
 mass = 1000.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource( 2 )
-material/0 = null
+mesh = SubResource("2")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0

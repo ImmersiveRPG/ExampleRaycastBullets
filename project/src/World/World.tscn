@@ -1,86 +1,85 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://ifeytsmoce2h"]
 
-[ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/Floor/Floor.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/World/World.gd" type="Script" id=3]
-[ext_resource path="res://src/SteelBlock/SteelBlock.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/Items/LargeCan/LargeCan.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/Items/MediumCan/MediumCan.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/Items/SmallCan/SmallCan.tscn" type="PackedScene" id=7]
+[ext_resource type="PackedScene" uid="uid://byi2ue35kb1gc" path="res://src/Player/Player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://vaboepuwlkbk" path="res://src/Floor/Floor.tscn" id="2"]
+[ext_resource type="Script" path="res://src/World/World.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://wfnbj7tws3du" path="res://src/SteelBlock/SteelBlock.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://b8iydcjw3nhvq" path="res://src/Items/LargeCan/LargeCan.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://b61fmiw18n3da" path="res://src/Items/MediumCan/MediumCan.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://bpw47tjkojlej" path="res://src/Items/SmallCan/SmallCan.tscn" id="7"]
 
-[sub_resource type="Sky" id=1]
+[sub_resource type="Sky" id="1"]
 
-[sub_resource type="Environment" id=2]
+[sub_resource type="Environment" id="2"]
 background_mode = 2
-background_sky = SubResource( 1 )
+sky = SubResource("1")
 glow_enabled = true
 
-[sub_resource type="BoxShape3D" id=3]
-size = Vector3( 2, 0.5, 0.5 )
+[sub_resource type="BoxShape3D" id="3"]
+size = Vector3(2, 0.5, 0.5)
 
-[sub_resource type="BoxMesh" id=4]
-size = Vector3( 4, 1, 1 )
+[sub_resource type="BoxMesh" id="4"]
+size = Vector3(4, 1, 1)
 
 [node name="World" type="Node3D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 2 )
+environment = SubResource("2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D( 0.784517, 2.71058e-08, -0.620108, 0.620108, -3.42923e-08, 0.784517, 0, -1, -4.37114e-08, -481, 185, 0 )
+transform = Transform3D(0.784517, 2.71058e-08, -0.620108, 0.620108, -3.42923e-08, 0.784517, 0, -1, -4.37114e-08, -481, 185, 0)
 light_energy = 0.5
 light_indirect_energy = 0.5
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5509, 0.365278, 4.91797 )
+[node name="Player" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5509, 0.365278, 4.91797)
 
-[node name="Floor" parent="." instance=ExtResource( 2 )]
+[node name="Floor" parent="." instance=ExtResource("2")]
 
-[node name="SteelBlock" parent="." instance=ExtResource( 4 )]
-transform = Transform3D( 0.707107, 0.707107, 0, -0.5, 0.5, 0.707107, 0.5, -0.5, 0.707107, 9, 2, 0 )
+[node name="SteelBlock" parent="." instance=ExtResource("4")]
+transform = Transform3D(0.707107, 0.707107, 0, -0.5, 0.5, 0.707107, 0.5, -0.5, 0.707107, 9, 2, 0)
 
 [node name="Table" type="StaticBody3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, 0)
 collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Table"]
-shape = SubResource( 3 )
+shape = SubResource("3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Table/CollisionShape3D"]
-mesh = SubResource( 4 )
-material/0 = null
+mesh = SubResource("4")
 
-[node name="LargeCan" parent="Table" instance=ExtResource( 5 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3727, 0.507405, 0 )
+[node name="LargeCan" parent="Table" instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3727, 0.507405, 0)
 
-[node name="LargeCan2" parent="Table" instance=ExtResource( 5 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.275853, 0.507405, 0 )
+[node name="LargeCan2" parent="Table" instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.275853, 0.507405, 0)
 
-[node name="LargeCan3" parent="Table" instance=ExtResource( 5 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.834127, 0.507405, 0 )
+[node name="LargeCan3" parent="Table" instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.834127, 0.507405, 0)
 
-[node name="MediumCan" parent="Table" instance=ExtResource( 6 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.547056, 1.75485, 0 )
+[node name="MediumCan" parent="Table" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.547056, 1.75485, 0)
 
-[node name="MediumCan2" parent="Table" instance=ExtResource( 6 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32628, 1.75485, 0 )
+[node name="MediumCan2" parent="Table" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32628, 1.75485, 0)
 
-[node name="MediumCan3" parent="Table" instance=ExtResource( 6 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24967, 1.75485, 0 )
+[node name="MediumCan3" parent="Table" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24967, 1.75485, 0)
 
-[node name="SmallCan" parent="Table" instance=ExtResource( 7 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.888213, 2.57378, 0 )
+[node name="SmallCan" parent="Table" instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.888213, 2.57378, 0)
 
-[node name="SmallCan2" parent="Table" instance=ExtResource( 7 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.328971, 2.57378, 0 )
+[node name="SmallCan2" parent="Table" instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.328971, 2.57378, 0)
 
-[node name="SmallCan3" parent="Table" instance=ExtResource( 7 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237932, 2.57378, 0 )
+[node name="SmallCan3" parent="Table" instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237932, 2.57378, 0)
 
-[node name="SmallCan4" parent="Table" instance=ExtResource( 7 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812495, 2.57378, 0 )
+[node name="SmallCan4" parent="Table" instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812495, 2.57378, 0)
 
-[node name="SmallCan5" parent="Table" instance=ExtResource( 7 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3794, 2.57378, 0 )
+[node name="SmallCan5" parent="Table" instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3794, 2.57378, 0)

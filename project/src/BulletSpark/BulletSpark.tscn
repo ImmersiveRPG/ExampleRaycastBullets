@@ -1,17 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://cl66lojg3pq3w"]
 
-[ext_resource path="res://src/BulletSpark/material.tres" type="Material" id=1]
-[ext_resource path="res://src/BulletSpark/BulletSpark.gd" type="Script" id=2]
+[ext_resource type="Material" path="res://src/BulletSpark/material.tres" id="1"]
+[ext_resource type="Script" path="res://src/BulletSpark/BulletSpark.gd" id="2"]
 
-[sub_resource type="SphereMesh" id=1]
-material = ExtResource( 1 )
+[sub_resource type="SphereMesh" id="1"]
+material = ExtResource("1")
 radius = 0.1
 height = 0.2
 
 [node name="BulletSpark" type="MeshInstance3D"]
-mesh = SubResource( 1 )
-material/0 = null
-script = ExtResource( 2 )
+mesh = SubResource("1")
+script = ExtResource("2")
 
 [node name="TimerDie" type="Timer" parent="."]
 wait_time = 0.1
