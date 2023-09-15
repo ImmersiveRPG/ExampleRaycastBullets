@@ -2,12 +2,16 @@
 # This file is licensed under the MIT License
 # https://github.com/ImmersiveRPG/ExampleRaycastBullets
 
+extends MeshInstance3D
 class_name BulletGlow
-extends ImmediateMesh
 
-var _points := []
+var _points : Array[Vector3] = []
 var _prev_pos := Vector3.ZERO
 var _parent_bullet : Node = null
+var _immediate_mesh : ImmediateMesh = null
+
+func _ready() -> void:
+	_immediate_mesh = self.mesh
 
 func _physics_process(delta : float) -> void:
 	# If the parent bullet still exists, add a point when it moves at least a meter
@@ -29,18 +33,22 @@ func _physics_process(delta : float) -> void:
 		else:
 			self.queue_free()
 
-func _process(delta : float) -> void:
+func _process(_delta : float) -> void:
+	if not _immediate_mesh: return
+	if _points.size() < 4: return
+
 	# Draw the line
-	clear()
-	begin(1, null)
+	_immediate_mesh.clear_surfaces()
+	_immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES)
 	for i in _points.size():
 		if i + 1 < _points.size():
-			var a = _points[i]
-			var b = _points[i + 1]
-			add_vertex(a)
-			add_vertex(b)
-	end()
+			var a := _points[i]
+			var b := _points[i + 1]
+			_immediate_mesh.surface_add_vertex(a)
+			_immediate_mesh.surface_add_vertex(b)
+	_immediate_mesh.surface_end()
 
 func start(bullet : Node) -> void:
 	_parent_bullet = bullet
+	#_points.append(Vector3(0, 0, 0))
 	self._physics_process(0.0)
