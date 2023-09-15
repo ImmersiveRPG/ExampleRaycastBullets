@@ -50,5 +50,5 @@ func _process(_delta : float) -> void:
 
 func start(bullet : Node) -> void:
 	_parent_bullet = bullet
-	#_points.append(Vector3(0, 0, 0))
+	_points.append(Vector3(0, 0, 0))
 	self._physics_process(0.0)
