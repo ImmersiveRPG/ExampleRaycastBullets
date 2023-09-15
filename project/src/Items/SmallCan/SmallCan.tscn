@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://bmt25hgf22xxj" path="res://src/Items/SmallCan/material.tres" id="2"]
 
 [sub_resource type="BoxShape3D" id="3"]
-size = Vector3(0.25, 0.5, 0.25)
+size = Vector3(0.5, 1, 0.5)
 
 [sub_resource type="BoxMesh" id="4"]
 material = ExtResource("2")

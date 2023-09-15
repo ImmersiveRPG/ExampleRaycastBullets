@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://b56vdlhavrckn" path="res://src/Items/HuntingRifle/material_metal.tres" id="5"]
 
 [sub_resource type="BoxShape3D" id="1"]
-size = Vector3(0.0291551, 0.120722, 0.605466)
+size = Vector3(0.058, 0.242, 1.21)
 
 [node name="HuntingRifle" type="RigidBody3D" groups=["item"]]
 collision_layer = 2
