@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ifeytsmoce2h"]
+[gd_scene load_steps=13 format=3 uid="uid://ifeytsmoce2h"]
 
 [ext_resource type="PackedScene" uid="uid://byi2ue35kb1gc" path="res://src/Player/Player.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://vaboepuwlkbk" path="res://src/Floor/Floor.tscn" id="2"]
@@ -8,11 +8,16 @@
 [ext_resource type="PackedScene" uid="uid://b61fmiw18n3da" path="res://src/Items/MediumCan/MediumCan.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://bpw47tjkojlej" path="res://src/Items/SmallCan/SmallCan.tscn" id="7"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_by4f0"]
+
 [sub_resource type="Sky" id="1"]
+sky_material = SubResource("ProceduralSkyMaterial_by4f0")
 
 [sub_resource type="Environment" id="2"]
 background_mode = 2
 sky = SubResource("1")
+ambient_light_source = 3
+reflected_light_source = 2
 glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="3"]
