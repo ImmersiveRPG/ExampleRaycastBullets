@@ -65,7 +65,8 @@ func _process(delta : float) -> void:
 	var from = camera.project_ray_origin(_latest_mouse_pos)
 	var to = from + camera.project_ray_normal(_latest_mouse_pos) * ray_length
 	var space_state = get_world_3d().direct_space_state
-	var result = space_state.intersect_ray(from, to)
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	var result = space_state.intersect_ray(query)
 	target = result.position if result else to
 
 	# Make player aim where ray is pointing
