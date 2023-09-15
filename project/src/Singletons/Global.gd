@@ -7,7 +7,7 @@ extends Node
 const GAME_TITLE := "Godot Raycast Bullets"
 
 const AIR_FRICTION := 10.0
-const FLOOR_SLOPE_MAX_THRESHOLD := deg2rad(60)
+const FLOOR_SLOPE_MAX_THRESHOLD := deg_to_rad(60)
 const FLOOR_FRICTION := 60.0
 const GRAVITY := -40.0
 const MOUSE_SENSITIVITY := 0.1
@@ -19,19 +19,19 @@ const MOUSE_Y_MIN := -60.0
 var _rng : RandomNumberGenerator
 var _root_node : Node
 
-onready var _scene_bullet := ResourceLoader.load("res://src/Bullet/Bullet.tscn")
-onready var _scene_bullet_glow := ResourceLoader.load("res://src/BulletGlow/BulletGlow.tscn")
-onready var _scene_bullet_spark := ResourceLoader.load("res://src/BulletSpark/BulletSpark.tscn")
+@onready var _scene_bullet := ResourceLoader.load("res://src/Bullet/Bullet.tscn")
+@onready var _scene_bullet_glow := ResourceLoader.load("res://src/BulletGlow/BulletGlow.tscn")
+@onready var _scene_bullet_spark := ResourceLoader.load("res://src/BulletSpark/BulletSpark.tscn")
 
 func create_bullet(parent : Node, start_pos : Vector3, target_pos : Vector3, bullet_type : int) -> void:
-	var bullet = _scene_bullet.instance()
+	var bullet = _scene_bullet.instantiate()
 	parent.add_child(bullet)
 	bullet.global_transform.origin = start_pos
 	bullet.look_at(target_pos, Vector3.UP)
 	bullet.start(bullet_type)
 
 func create_bullet_spark(pos : Vector3) -> void:
-	var spark = _scene_bullet_spark.instance()
+	var spark = _scene_bullet_spark.instantiate()
 	Global._root_node.add_child(spark)
 	spark.global_transform.origin = pos
 

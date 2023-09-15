@@ -2,7 +2,7 @@
 # This file is licensed under the MIT License
 # https://github.com/ImmersiveRPG/ExampleRaycastBullets
 
-extends MeshInstance
+extends MeshInstance3D
 class_name BulletSpark
 
 

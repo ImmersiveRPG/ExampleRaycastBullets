@@ -2,7 +2,7 @@
 # This file is licensed under the MIT License
 # https://github.com/ImmersiveRPG/ExampleRaycastBullets
 
-extends Spatial
+extends Node3D
 class_name Bullet
 
 var _bullet_type := -1
@@ -13,7 +13,7 @@ var _glow = null
 var _velocity : Vector3
 
 var _total_distance := 0.0
-onready var _ray = $RayCast
+@onready var _ray = $RayCast3D
 
 
 
@@ -30,10 +30,10 @@ func _physics_process(delta : float) -> void:
 	# get the target closest to the bullet start position.
 	# Also make the ray at least 1 meter long
 	if distance > 1.0:
-		_ray.cast_to.z = -distance
+		_ray.target_position.z = -distance
 		_ray.transform.origin.z = distance
 	else:
-		_ray.cast_to.z = -1.0
+		_ray.target_position.z = -1.0
 		_ray.transform.origin.z = 1.0
 
 	if _ignore_collision_distance > 0.0:
@@ -87,7 +87,7 @@ func start(bullet_type : int) -> void:
 	#print("Loaded values for %s" % self.name)
 
 	# Add bullet glow
-	_glow = Global._scene_bullet_glow.instance()
+	_glow = Global._scene_bullet_glow.instantiate()
 	Global._root_node.add_child(_glow)
 	_glow.global_transform.origin = self.global_transform.origin
 	_glow.start(self)

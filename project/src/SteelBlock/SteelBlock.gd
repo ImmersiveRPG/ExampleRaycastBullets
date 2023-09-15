@@ -2,9 +2,9 @@
 # This file is licensed under the MIT License
 # https://github.com/ImmersiveRPG/ExampleRaycastBullets
 
-extends RigidBody
+extends RigidBody3D
 
-signal apply_force(angle, force)
+signal apply_force(force, angle)
 
 var _element : int = Global.Element.Steel
 var _rand_rotation_force := Vector3.ZERO

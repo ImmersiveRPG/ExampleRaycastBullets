@@ -8,7 +8,7 @@ material = ExtResource( 1 )
 radius = 0.1
 height = 0.2
 
-[node name="BulletSpark" type="MeshInstance"]
+[node name="BulletSpark" type="MeshInstance3D"]
 mesh = SubResource( 1 )
 material/0 = null
 script = ExtResource( 2 )

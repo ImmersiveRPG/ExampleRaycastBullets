@@ -2,7 +2,7 @@
 # This file is licensed under the MIT License
 # https://github.com/ImmersiveRPG/ExampleRaycastBullets
 
-extends KinematicBody
+extends CharacterBody3D
 class_name Player
 
 const WALK_ACCELERATION := 70.0
@@ -33,13 +33,13 @@ func _input(event : InputEvent) -> void:
 
 func _process(delta : float) -> void:
 	# Angle the camera
-	var camera = $CameraMount/v/Camera
+	var camera = $CameraMount/v/Camera3D
 	_camera_x_new = lerp(_camera_x_new, _camera_x, delta * Global.MOUSE_ACCELERATION_X)
 	self.rotation_degrees.y = _camera_x_new
 	$CameraMount/v.rotation_degrees.x = lerp($CameraMount/v.rotation_degrees.x, _camera_y, delta * Global.MOUSE_ACCELERATION_X)
 
 	# Figure out what we are looking at
-	var look_at := $CameraMount/v/Camera/RayMount/LookAtRayCast
+	var look_at := $CameraMount/v/Camera3D/RayMount/LookAtRayCast
 	look_at.force_raycast_update()
 	var thing = look_at.get_collider()
 	if thing:
@@ -64,7 +64,7 @@ func _process(delta : float) -> void:
 	var ray_length := 300
 	var from = camera.project_ray_origin(_latest_mouse_pos)
 	var to = from + camera.project_ray_normal(_latest_mouse_pos) * ray_length
-	var space_state = get_world().direct_space_state
+	var space_state = get_world_3d().direct_space_state
 	var result = space_state.intersect_ray(from, to)
 	target = result.position if result else to
 
@@ -111,6 +111,14 @@ func _physics_process(delta : float) -> void:
 	_snap_vector = -get_floor_normal() if is_on_floor() else Vector3.DOWN
 
 	# Actually move
-	_velocity = move_and_slide_with_snap(_velocity, _snap_vector, Vector3.UP, true, 4, Global.FLOOR_SLOPE_MAX_THRESHOLD, false)
+	set_velocity(_velocity)
+	# TODOConverter3To4 looks that snap in Godot 4 is float, not vector like in Godot 3 - previous value `_snap_vector`
+	set_up_direction(Vector3.UP)
+	set_floor_stop_on_slope_enabled(true)
+	set_max_slides(4)
+	set_floor_max_angle(Global.FLOOR_SLOPE_MAX_THRESHOLD)
+	# TODOConverter3To4 infinite_inertia were removed in Godot 4 - previous value `false`
+	move_and_slide()
+	_velocity = velocity
 
 

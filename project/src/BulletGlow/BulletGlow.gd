@@ -3,7 +3,7 @@
 # https://github.com/ImmersiveRPG/ExampleRaycastBullets
 
 class_name BulletGlow
-extends ImmediateGeometry
+extends ImmediateMesh
 
 var _points := []
 var _prev_pos := Vector3.ZERO
@@ -24,7 +24,7 @@ func _physics_process(delta : float) -> void:
 				_points.pop_front()
 	else:
 		# If the bullet is destroyed, delete the points
-		if not _points.empty():
+		if not _points.is_empty():
 			_points.pop_front()
 		else:
 			self.queue_free()
