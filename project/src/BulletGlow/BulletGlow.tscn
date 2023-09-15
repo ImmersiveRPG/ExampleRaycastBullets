@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://cd6v0qe102ox" path="res://src/BulletGlow/glow_material.tres" id="2"]
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_m43ta"]
+resource_local_to_scene = true
 
 [node name="BulletGlow" type="MeshInstance3D"]
 material_override = ExtResource("2")
