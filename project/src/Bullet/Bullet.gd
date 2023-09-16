@@ -9,6 +9,7 @@ var _bullet_type := -1
 var _mass := -1.0
 var _max_distance := -1.0
 var _glow = null
+var _speed := 0.0
 var _velocity : Vector3
 var _gravity_velocity := 0.0
 var _is_setup := false
@@ -56,8 +57,9 @@ func _physics_process(delta : float) -> void:
 
 		# Ricochet the bullet if the item is steel or concrete
 		if collider.is_in_group("element") and collider._element in [Global.Element.Steel, Global.Element.Concrete]:
-			# Remove 20% of the bullet's speed
-			_velocity -= _velocity * 0.20
+			# Remove 20% of the speed
+			_speed = clampf(_speed - _speed * 0.20, 0.0, 10000.0)
+			_velocity = self.transform.basis.z * _speed
 
 			# Bounce
 			var norm = _ray.get_collision_normal()
@@ -92,8 +94,8 @@ func start(bullet_type : int) -> void:
 	var entry = Global.DB["Bullets"][_bullet_type]
 	_mass = entry["mass"]
 	_max_distance = entry["max_distance"]
-	var speed = entry["speed"]
-	_velocity = self.transform.basis.z * speed
+	_speed = entry["speed"]
+	_velocity = self.transform.basis.z * _speed
 	#print("Loaded values for %s" % self.name)
 
 	# Add bullet glow
