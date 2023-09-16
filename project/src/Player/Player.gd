@@ -25,7 +25,7 @@ func _input(event : InputEvent) -> void:
 	# Rotate camera with mouse
 	if event is InputEventMouseMotion:
 		_camera_x -= event.relative.x * Global.MOUSE_SENSITIVITY
-		_camera_y = clamp(_camera_y - event.relative.y * Global.MOUSE_SENSITIVITY, Global.MOUSE_Y_MIN, Global.MOUSE_Y_MAX)
+		_camera_y = clampf(_camera_y - event.relative.y * Global.MOUSE_SENSITIVITY, Global.MOUSE_Y_MIN, Global.MOUSE_Y_MAX)
 
 	# Update the latest mouse position
 	if event is InputEventMouse:
@@ -34,9 +34,9 @@ func _input(event : InputEvent) -> void:
 func _process(delta : float) -> void:
 	# Angle the camera
 	var camera : Camera3D = $CameraMount/v/Camera3D
-	_camera_x_new = lerp(_camera_x_new, _camera_x, delta * Global.MOUSE_ACCELERATION_X)
+	_camera_x_new = lerpf(_camera_x_new, _camera_x, delta * Global.MOUSE_ACCELERATION_X)
 	self.rotation_degrees.y = _camera_x_new
-	$CameraMount/v.rotation_degrees.x = lerp($CameraMount/v.rotation_degrees.x, _camera_y, delta * Global.MOUSE_ACCELERATION_X)
+	$CameraMount/v.rotation_degrees.x = lerpf($CameraMount/v.rotation_degrees.x, _camera_y, delta * Global.MOUSE_ACCELERATION_X)
 
 	# Figure out what we are looking at
 	var look_at : RayCast3D = $CameraMount/v/Camera3D/RayMount/LookAtRayCast
@@ -106,7 +106,7 @@ func _physics_process(delta : float) -> void:
 			_velocity.z = _velocity.move_toward(input_direction * max_velocity, Global.AIR_FRICTION * delta).z
 
 	# Gravity
-	_velocity.y = clamp(_velocity.y + Global.GRAVITY * delta, Global.GRAVITY, -Global.GRAVITY)
+	_velocity.y = clampf(_velocity.y + Global.GRAVITY * delta, Global.GRAVITY, -Global.GRAVITY)
 
 	# Actually move
 	self.set_floor_max_angle(Global.FLOOR_SLOPE_MAX_THRESHOLD)
