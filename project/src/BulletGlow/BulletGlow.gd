@@ -17,7 +17,7 @@ func _physics_process(delta : float) -> void:
 	# If the parent bullet still exists, add a point when it moves at least a meter
 	if _parent_bullet != null and is_instance_valid(_parent_bullet):
 		var position := _parent_bullet.global_transform.origin
-		var distance := Global.distance_between(_prev_pos, position)
+		var distance := _prev_pos.distance_to(position)
 		if distance > 1.0:
 			_prev_pos = position
 

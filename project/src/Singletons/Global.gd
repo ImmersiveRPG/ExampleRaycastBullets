@@ -126,10 +126,3 @@ func _ready() -> void:
 	# Setup random number generator
 	_rng = RandomNumberGenerator.new()
 	_rng.randomize()
-
-func distance_between(v1 : Vector3, v2 : Vector3) -> float:
-	var dx := v1.x - v2.x
-	var dy := v1.y - v2.y
-	var dz := v1.z - v2.z
-	return sqrt(dx * dx + dy * dy + dz * dz)
-
