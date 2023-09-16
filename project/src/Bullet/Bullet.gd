@@ -23,6 +23,7 @@ const MIN_RAYCAST_DISTANCE := 0.3
 
 func _physics_process(delta : float) -> void:
 	if not _is_setup: return
+	var is_destroyed := false
 
 	# Move the bullet
 	var distance := _velocity.length() * delta
@@ -43,7 +44,7 @@ func _physics_process(delta : float) -> void:
 		_ray.target_position.z = -MIN_RAYCAST_DISTANCE
 		_ray.transform.origin.z = MIN_RAYCAST_DISTANCE
 
-	# Delete the bullet if it hit something
+	# Check if hit something
 	_ray.force_raycast_update()
 	if _ray.is_colliding():
 		var collider := _ray.get_collider()
@@ -52,7 +53,7 @@ func _physics_process(delta : float) -> void:
 		# Move the bullet back to the position of the collision
 		self.global_transform.origin = _ray.get_collision_point()
 
-		# Ricochet the bullet if the item is steel or concrete
+		# Ricochet the bullet if it is hitting steel or concrete
 		if collider.is_in_group("element") and collider._element in [Global.Element.Steel, Global.Element.Concrete]:
 			# Remove 20% of the speed
 			_speed = clampf(_speed - _speed * 0.20, 0.0, 10000.0)
@@ -74,22 +75,29 @@ func _physics_process(delta : float) -> void:
 			# Nudge the object
 			var force := _mass * _velocity.length()
 			collider.emit_signal("apply_force", -self.transform.basis.z, force)
-			self.queue_free()
+			is_destroyed = true
 		# Hit something unexpected
 		else:
-			self.queue_free()
+			is_destroyed = true
 
 		# Add bullet spark
 		Global.create_bullet_spark(self.global_transform.origin)
 
+	# Update glow
+	_glow.update(self.global_transform.origin)
+
 	# Delete the bullet if it is slow
 	if distance < 1.0:
-		self.queue_free()
+		is_destroyed = true
 
 	# Delete the bullet if it has gone its max distance
 	_total_distance += distance
 	if _total_distance > _max_distance:
+		is_destroyed = true
+
+	if is_destroyed:
 		self.queue_free()
+		_glow._is_parent_bullet_destroyed = true
 
 func start(bullet_type : Global.BulletType) -> void:
 	# Get the bullet info from the database

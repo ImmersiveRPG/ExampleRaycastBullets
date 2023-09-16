@@ -7,27 +7,27 @@ class_name BulletGlow
 
 var _points : Array[Vector3] = []
 var _prev_pos := Vector3.ZERO
-var _parent_bullet : Node3D = null
 var _immediate_mesh : ImmediateMesh = null
+var _is_parent_bullet_destroyed := false
 
 func _ready() -> void:
 	_immediate_mesh = self.mesh
 
-func _physics_process(_delta : float) -> void:
+func update(parent_pos : Vector3) -> void:
 	# If the parent bullet still exists, add a point when it moves at least a meter
-	if _parent_bullet != null and is_instance_valid(_parent_bullet):
-		var pos := _parent_bullet.global_transform.origin
-		var distance := _prev_pos.distance_to(pos)
-		if distance > 1.0:
-			_prev_pos = pos
+	var distance := _prev_pos.distance_to(parent_pos)
+	if distance > 1.0:
+		_prev_pos = parent_pos
 
-			# Save position as local space
-			_points.append(pos - self.global_transform.origin)
+		# Save position as local space
+		_points.append(parent_pos - self.global_transform.origin)
 
-			if _points.size() > 5:
-				_points.pop_front()
-	else:
-		# If the bullet is destroyed, delete the points
+		if _points.size() > 6:
+			_points.pop_front()
+
+func _physics_process(_delta : float) -> void:
+	# If the bullet is destroyed, delete the points
+	if _is_parent_bullet_destroyed:
 		if not _points.is_empty():
 			_points.pop_front()
 		else:
@@ -35,7 +35,7 @@ func _physics_process(_delta : float) -> void:
 
 func _process(_delta : float) -> void:
 	if not _immediate_mesh: return
-	if _points.size() < 4: return
+	if _points.size() < 2: return
 
 	# Draw the line
 	_immediate_mesh.clear_surfaces()
@@ -49,6 +49,5 @@ func _process(_delta : float) -> void:
 	_immediate_mesh.surface_end()
 
 func start(bullet : Node3D) -> void:
-	_parent_bullet = bullet
-	_points.append(Vector3(0, 0, 0))
+	_points.append(bullet.global_transform.origin - self.global_transform.origin)
 	self._physics_process(0.0)
