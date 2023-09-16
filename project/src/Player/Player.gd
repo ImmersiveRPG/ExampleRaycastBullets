@@ -108,18 +108,10 @@ func _physics_process(delta : float) -> void:
 	# Gravity
 	_velocity.y = clamp(_velocity.y + Global.GRAVITY * delta, Global.GRAVITY, -Global.GRAVITY)
 
-	# Snap to floor plane if close enough
-	_snap_vector = -get_floor_normal() if is_on_floor() else Vector3.DOWN
-
 	# Actually move
-	set_velocity(_velocity)
-	# TODOConverter3To4 looks that snap in Godot 4 is float, not vector like in Godot 3 - previous value `_snap_vector`
-	set_up_direction(Vector3.UP)
-	set_floor_stop_on_slope_enabled(true)
-	set_max_slides(4)
-	set_floor_max_angle(Global.FLOOR_SLOPE_MAX_THRESHOLD)
-	# TODOConverter3To4 infinite_inertia were removed in Godot 4 - previous value `false`
-	move_and_slide()
-	_velocity = velocity
+	self.set_floor_max_angle(Global.FLOOR_SLOPE_MAX_THRESHOLD)
+	self.set_velocity(_velocity)
+	self.move_and_slide()
+	_velocity = self.get_velocity()
 
 
