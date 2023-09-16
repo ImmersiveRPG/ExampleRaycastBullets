@@ -10,6 +10,7 @@ var _mass := -1.0
 var _max_distance := -1.0
 var _glow = null
 var _velocity : Vector3
+var _gravity_velocity := 0.0
 var _is_setup := false
 
 var _total_distance := 0.0
@@ -27,7 +28,8 @@ func _physics_process(delta : float) -> void:
 	self.transform.origin -= _velocity * delta
 
 	# Gravity
-	#self.transform.origin.y -= 9.8 * delta
+	_gravity_velocity = clampf(_gravity_velocity + 9.8 * delta, 0, 9.8)
+	self.transform.origin.y -= _gravity_velocity
 
 	# Change the ray start position to the bullets's previous position
 	# NOTE: The ray is backwards, so if it is hitting multiple targets, we
