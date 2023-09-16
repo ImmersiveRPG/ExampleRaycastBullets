@@ -16,7 +16,6 @@ const MOUSE_ACCELERATION_Y := 10.0
 const MOUSE_Y_MAX := 70.0
 const MOUSE_Y_MIN := -60.0
 
-var _rng : RandomNumberGenerator
 var _root_node : Node
 
 @onready var _scene_bullet := ResourceLoader.load("res://src/Bullet/Bullet.tscn")
@@ -121,8 +120,3 @@ const DB = {
 		},
 	}
 }
-
-func _ready() -> void:
-	# Setup random number generator
-	_rng = RandomNumberGenerator.new()
-	_rng.randomize()

@@ -18,6 +18,6 @@ func _process(delta : float) -> void:
 
 func _on_timeout() -> void:
 	var power := 200.0
-	_rand_rotation_force.x = Global._rng.randf_range(-power, power)
-	_rand_rotation_force.y = Global._rng.randf_range(-power, power)
-	_rand_rotation_force.z = Global._rng.randf_range(-power, power)
+	_rand_rotation_force.x = randf_range(-power, power)
+	_rand_rotation_force.y = randf_range(-power, power)
+	_rand_rotation_force.z = randf_range(-power, power)
