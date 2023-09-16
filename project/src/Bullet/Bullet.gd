@@ -52,9 +52,6 @@ func _physics_process(delta : float) -> void:
 		# Move the bullet back to the position of the collision
 		self.global_transform.origin = _ray.get_collision_point()
 
-		# Add bullet spark
-		Global.create_bullet_spark(self.global_transform.origin)
-
 		# Ricochet the bullet if the item is steel or concrete
 		if collider.is_in_group("element") and collider._element in [Global.Element.Steel, Global.Element.Concrete]:
 			# Remove 20% of the speed
@@ -81,6 +78,9 @@ func _physics_process(delta : float) -> void:
 		# Hit something unexpected
 		else:
 			self.queue_free()
+
+		# Add bullet spark
+		Global.create_bullet_spark(self.global_transform.origin)
 
 	# Delete the bullet if it is slow
 	if distance < 1.0:
