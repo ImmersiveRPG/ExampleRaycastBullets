@@ -13,7 +13,6 @@ const ROTATION_SPEED := 10.0
 var _latest_mouse_pos := Vector2.ZERO
 var _input_vector := Vector3.ZERO
 var _velocity := Vector3.ZERO
-var _snap_vector := Vector3.ZERO
 var _looking_at = null
 var _camera_x := 0.0
 var _camera_x_new := 0.0
@@ -39,9 +38,9 @@ func _process(delta : float) -> void:
 	$CameraMount/v.rotation_degrees.x = lerpf($CameraMount/v.rotation_degrees.x, _camera_y, delta * Global.MOUSE_ACCELERATION_X)
 
 	# Figure out what we are looking at
-	var look_at : RayCast3D = $CameraMount/v/Camera3D/RayMount/LookAtRayCast
-	look_at.force_raycast_update()
-	var thing = look_at.get_collider()
+	var look_at_ray : RayCast3D = $CameraMount/v/Camera3D/RayMount/LookAtRayCast
+	look_at_ray.force_raycast_update()
+	var thing = look_at_ray.get_collider()
 	if thing:
 		if thing != _looking_at:
 			_looking_at = thing

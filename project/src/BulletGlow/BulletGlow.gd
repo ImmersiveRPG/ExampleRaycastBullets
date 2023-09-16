@@ -13,16 +13,16 @@ var _immediate_mesh : ImmediateMesh = null
 func _ready() -> void:
 	_immediate_mesh = self.mesh
 
-func _physics_process(delta : float) -> void:
+func _physics_process(_delta : float) -> void:
 	# If the parent bullet still exists, add a point when it moves at least a meter
 	if _parent_bullet != null and is_instance_valid(_parent_bullet):
-		var position := _parent_bullet.global_transform.origin
-		var distance := _prev_pos.distance_to(position)
+		var pos := _parent_bullet.global_transform.origin
+		var distance := _prev_pos.distance_to(pos)
 		if distance > 1.0:
-			_prev_pos = position
+			_prev_pos = pos
 
 			# Save position as local space
-			_points.append(position - self.global_transform.origin)
+			_points.append(pos - self.global_transform.origin)
 
 			if _points.size() > 5:
 				_points.pop_front()
