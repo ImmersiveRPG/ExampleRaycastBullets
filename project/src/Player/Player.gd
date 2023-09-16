@@ -72,7 +72,7 @@ func _process(delta : float) -> void:
 	# Make player aim where ray is pointing
 	if target != Vector3.INF:
 		var arm := $Pivot/Body/RShoulder
-		arm.look_at(target, Vector3.UP)
+		Global.safe_look_at(arm, target)
 
 	# Shooting
 	if is_shooting:

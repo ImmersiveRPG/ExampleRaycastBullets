@@ -61,7 +61,7 @@ func _physics_process(delta : float) -> void:
 			# Bounce
 			var norm = _ray.get_collision_normal()
 			_velocity = _velocity.bounce(norm)
-			self.look_at(global_transform.origin - _velocity, Vector3.UP)
+			Global.safe_look_at(self, self.global_transform.origin - _velocity)
 
 			# Move away from collision location to avoid still touching it,
 			# or raycast tail still touching it
