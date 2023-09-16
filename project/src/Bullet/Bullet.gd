@@ -8,14 +8,15 @@ class_name Bullet
 var _bullet_type := -1
 var _mass := -1.0
 var _max_distance := -1.0
-var _ignore_collision_distance := 0.0
 var _glow = null
 var _velocity : Vector3
 
 var _total_distance := 0.0
 @onready var _ray = $RayCast3D
 
-
+# NOTE: Make sure min bounce distance is greater than max raycast distance
+const MIN_BOUNCE_DISTANCE := 0.5
+const MIN_RAYCAST_DISTANCE := 0.3
 
 func _physics_process(delta : float) -> void:
 	# Move the bullet
@@ -28,21 +29,17 @@ func _physics_process(delta : float) -> void:
 	# Change the ray start position to the bullets's previous position
 	# NOTE: The ray is backwards, so if it is hitting multiple targets, we
 	# get the target closest to the bullet start position.
-	# Also make the ray at least 1 meter long
-	if distance > 1.0:
+	# Also make the ray at least the min length
+	if distance > MIN_RAYCAST_DISTANCE:
 		_ray.target_position.z = -distance
 		_ray.transform.origin.z = distance
 	else:
-		_ray.target_position.z = -1.0
-		_ray.transform.origin.z = 1.0
-
-	if _ignore_collision_distance > 0.0:
-		_ignore_collision_distance -= distance
+		_ray.target_position.z = -MIN_RAYCAST_DISTANCE
+		_ray.transform.origin.z = MIN_RAYCAST_DISTANCE
 
 	# Delete the bullet if it hit something
 	_ray.force_raycast_update()
-	if _ray.is_colliding() and _ignore_collision_distance <= 0.0:
-		_ignore_collision_distance = 2.0
+	if _ray.is_colliding():
 		var collider = _ray.get_collider()
 		print("Bullet hit %s" % [collider.name])
 
@@ -52,22 +49,24 @@ func _physics_process(delta : float) -> void:
 		# Add bullet spark
 		Global.create_bullet_spark(self.global_transform.origin)
 
-		if collider.is_in_group("item"):
+		# Ricochet the bullet if the item is steel or concrete
+		if collider.is_in_group("element") and collider._element in [Global.Element.Steel, Global.Element.Concrete]:
+			# Remove 20% of the bullet's speed
+			_velocity -= _velocity * 0.20
+			_velocity = _velocity.clamp(Vector3.ZERO, Vector3.ONE * 100000.0)
+
+			# Bounce
+			var norm = _ray.get_collision_normal()
+			_velocity = _velocity.bounce(norm)
+			self.look_at(global_transform.origin - _velocity, Vector3.UP)
+
+			# Move away from collision location to avoid still touching it,
+			# or raycast tail still touching it
+			self.transform.origin -= self.transform.basis.z * MIN_BOUNCE_DISTANCE
+		elif collider.is_in_group("item"):
 			# Nudge the object
 			var force := _mass * _velocity.length()
 			collider.emit_signal("apply_force", -self.transform.basis.z, force)
-
-			# Ricochet the bullet if the item is steel or concrete
-			if collider._element in [Global.Element.Steel, Global.Element.Concrete]:
-				# Remove 20% of the bullet's speed
-				_velocity -= (_velocity * 0.20)
-
-				# Bounce
-				var norm = _ray.get_collision_normal()
-				_velocity = _velocity.bounce(norm)
-				self.look_at(global_transform.origin - _velocity, Vector3.UP)
-			else:
-				self.queue_free()
 		else:
 			self.queue_free()
 
