@@ -33,13 +33,13 @@ func _input(event : InputEvent) -> void:
 
 func _process(delta : float) -> void:
 	# Angle the camera
-	var camera = $CameraMount/v/Camera3D
+	var camera : Camera3D = $CameraMount/v/Camera3D
 	_camera_x_new = lerp(_camera_x_new, _camera_x, delta * Global.MOUSE_ACCELERATION_X)
 	self.rotation_degrees.y = _camera_x_new
 	$CameraMount/v.rotation_degrees.x = lerp($CameraMount/v.rotation_degrees.x, _camera_y, delta * Global.MOUSE_ACCELERATION_X)
 
 	# Figure out what we are looking at
-	var look_at := $CameraMount/v/Camera3D/RayMount/LookAtRayCast
+	var look_at : RayCast3D = $CameraMount/v/Camera3D/RayMount/LookAtRayCast
 	look_at.force_raycast_update()
 	var thing = look_at.get_collider()
 	if thing:
@@ -62,11 +62,11 @@ func _process(delta : float) -> void:
 	# Get ray where camera is pointing
 	var target := Vector3.INF
 	var ray_length := 300
-	var from = camera.project_ray_origin(_latest_mouse_pos)
-	var to = from + camera.project_ray_normal(_latest_mouse_pos) * ray_length
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(from, to)
-	var result = space_state.intersect_ray(query)
+	var from := camera.project_ray_origin(_latest_mouse_pos)
+	var to := from + camera.project_ray_normal(_latest_mouse_pos) * ray_length
+	var space_state := get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	var result := space_state.intersect_ray(query)
 	target = result.position if result else to
 
 	# Make player aim where ray is pointing
@@ -81,8 +81,8 @@ func _process(delta : float) -> void:
 
 func _physics_process(delta : float) -> void:
 	# Check if moving
-	var input_direction : Vector3 = (_input_vector.x * transform.basis.x) + (_input_vector.z * transform.basis.z)
-	var is_moving : bool = input_direction != Vector3.ZERO
+	var input_direction := (_input_vector.x * transform.basis.x) + (_input_vector.z * transform.basis.z)
+	var is_moving := input_direction != Vector3.ZERO
 
 	# Velocity
 	var max_velocity := WALK_MAX_VELOCITY

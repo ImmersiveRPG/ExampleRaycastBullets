@@ -15,7 +15,7 @@ var _gravity_velocity := 0.0
 var _is_setup := false
 
 var _total_distance := 0.0
-@onready var _ray = $RayCast3D
+@onready var _ray : RayCast3D = $RayCast3D
 
 # NOTE: Make sure min bounce distance is greater than max raycast distance
 const MIN_BOUNCE_DISTANCE := 0.5
@@ -46,7 +46,7 @@ func _physics_process(delta : float) -> void:
 	# Delete the bullet if it hit something
 	_ray.force_raycast_update()
 	if _ray.is_colliding():
-		var collider = _ray.get_collider()
+		var collider := _ray.get_collider()
 		print("Bullet hit %s" % [collider.name])
 
 		# Move the bullet back to the position of the collision
@@ -65,7 +65,7 @@ func _physics_process(delta : float) -> void:
 			_gravity_velocity = 0.0
 
 			# Bounce
-			var norm = _ray.get_collision_normal()
+			var norm := _ray.get_collision_normal()
 			_velocity = _velocity.bounce(norm)
 			Global.safe_look_at(self, self.global_transform.origin - _velocity)
 
@@ -91,10 +91,10 @@ func _physics_process(delta : float) -> void:
 	if _total_distance > _max_distance:
 		self.queue_free()
 
-func start(bullet_type : int) -> void:
+func start(bullet_type : Global.BulletType) -> void:
 	# Get the bullet info from the database
 	_bullet_type = bullet_type
-	var entry = Global.DB["Bullets"][_bullet_type]
+	var entry : Dictionary = Global.DB["Bullets"][_bullet_type]
 	_mass = entry["mass"]
 	_max_distance = entry["max_distance"]
 	_speed = entry["speed"]

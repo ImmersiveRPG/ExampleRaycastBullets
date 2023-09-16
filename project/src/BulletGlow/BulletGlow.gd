@@ -7,7 +7,7 @@ class_name BulletGlow
 
 var _points : Array[Vector3] = []
 var _prev_pos := Vector3.ZERO
-var _parent_bullet : Node = null
+var _parent_bullet : Node3D = null
 var _immediate_mesh : ImmediateMesh = null
 
 func _ready() -> void:
@@ -16,8 +16,8 @@ func _ready() -> void:
 func _physics_process(delta : float) -> void:
 	# If the parent bullet still exists, add a point when it moves at least a meter
 	if _parent_bullet != null and is_instance_valid(_parent_bullet):
-		var position = _parent_bullet.global_transform.origin
-		var distance = Global.distance_between(_prev_pos, position)
+		var position := _parent_bullet.global_transform.origin
+		var distance := Global.distance_between(_prev_pos, position)
 		if distance > 1.0:
 			_prev_pos = position
 
@@ -48,7 +48,7 @@ func _process(_delta : float) -> void:
 			_immediate_mesh.surface_add_vertex(b)
 	_immediate_mesh.surface_end()
 
-func start(bullet : Node) -> void:
+func start(bullet : Node3D) -> void:
 	_parent_bullet = bullet
 	_points.append(Vector3(0, 0, 0))
 	self._physics_process(0.0)

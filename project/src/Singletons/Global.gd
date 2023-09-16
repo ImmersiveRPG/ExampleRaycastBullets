@@ -23,7 +23,7 @@ var _root_node : Node
 @onready var _scene_bullet_glow := ResourceLoader.load("res://src/BulletGlow/BulletGlow.tscn")
 @onready var _scene_bullet_spark := ResourceLoader.load("res://src/BulletSpark/BulletSpark.tscn")
 
-func create_bullet(parent : Node, start_pos : Vector3, target_pos : Vector3, bullet_type : int) -> void:
+func create_bullet(parent : Node, start_pos : Vector3, target_pos : Vector3, bullet_type : Global.BulletType) -> void:
 	var bullet = _scene_bullet.instantiate()
 	parent.add_child(bullet)
 	bullet.global_transform.origin = start_pos
@@ -38,7 +38,7 @@ func create_bullet_spark(pos : Vector3) -> void:
 # See Transform::set_look_at for C++
 # https://github.com/godotengine/godot/blob/3.4/core/math/transform.cpp#L78
 func safe_look_at(spatial : Node3D, target: Vector3) -> void:
-	var origin : Vector3 = spatial.global_transform.origin
+	var origin := spatial.global_transform.origin
 	var v_z := (origin - target).normalized()
 
 	# Just return if at same position
@@ -82,7 +82,7 @@ enum Element {
 	Aluminum,
 }
 
-var DB = {
+const DB = {
 	"Bullets" : {
 		BulletType._50BMG : {
 			"mass" : 0.023,

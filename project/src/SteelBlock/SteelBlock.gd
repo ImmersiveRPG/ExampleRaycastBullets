@@ -4,9 +4,9 @@
 
 extends RigidBody3D
 
-signal apply_force(force, angle)
+signal apply_force(angle : Vector3, force : float)
 
-var _element : int = Global.Element.Steel
+var _element := Global.Element.Steel
 var _rand_rotation_force := Vector3.ZERO
 
 func _on_apply_force(angle : Vector3, force : float) -> void:
