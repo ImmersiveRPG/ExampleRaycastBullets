@@ -76,6 +76,10 @@ func _physics_process(delta : float) -> void:
 		else:
 			self.queue_free()
 
+	# Delete the bullet if it is slow
+	if distance < 1.0:
+		self.queue_free()
+
 	# Delete the bullet if it has gone its max distance
 	_total_distance += distance
 	if _total_distance > _max_distance:
