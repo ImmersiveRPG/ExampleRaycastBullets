@@ -10,6 +10,7 @@ var _mass := -1.0
 var _max_distance := -1.0
 var _glow = null
 var _velocity : Vector3
+var _is_setup := false
 
 var _total_distance := 0.0
 @onready var _ray = $RayCast3D
@@ -19,6 +20,8 @@ const MIN_BOUNCE_DISTANCE := 0.5
 const MIN_RAYCAST_DISTANCE := 0.3
 
 func _physics_process(delta : float) -> void:
+	if not _is_setup: return
+
 	# Move the bullet
 	var distance := _velocity.length() * delta
 	self.transform.origin -= _velocity * delta
@@ -90,3 +93,5 @@ func start(bullet_type : int) -> void:
 	Global._root_node.add_child(_glow)
 	_glow.global_transform.origin = self.global_transform.origin
 	_glow.start(self)
+
+	_is_setup = true
