@@ -58,7 +58,6 @@ func _physics_process(delta : float) -> void:
 		if collider.is_in_group("element") and collider._element in [Global.Element.Steel, Global.Element.Concrete]:
 			# Remove 20% of the bullet's speed
 			_velocity -= _velocity * 0.20
-			_velocity = _velocity.clamp(Vector3.ZERO, Vector3.ONE * 100000.0)
 
 			# Bounce
 			var norm = _ray.get_collision_normal()
