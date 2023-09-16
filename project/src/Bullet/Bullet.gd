@@ -66,10 +66,13 @@ func _physics_process(delta : float) -> void:
 			# Move away from collision location to avoid still touching it,
 			# or raycast tail still touching it
 			self.transform.origin -= self.transform.basis.z * MIN_BOUNCE_DISTANCE
+		# Hit object
 		elif collider.is_in_group("item"):
 			# Nudge the object
 			var force := _mass * _velocity.length()
 			collider.emit_signal("apply_force", -self.transform.basis.z, force)
+			self.queue_free()
+		# Hit something unexpected
 		else:
 			self.queue_free()
 
