@@ -61,6 +61,9 @@ func _physics_process(delta : float) -> void:
 			_speed = clampf(_speed - _speed * 0.20, 0.0, 10000.0)
 			_velocity = self.transform.basis.z * _speed
 
+			# Reset gravity
+			_gravity_velocity = 0.0
+
 			# Bounce
 			var norm = _ray.get_collision_normal()
 			_velocity = _velocity.bounce(norm)
