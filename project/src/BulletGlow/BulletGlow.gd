@@ -16,7 +16,7 @@ func _ready() -> void:
 func update(parent_pos : Vector3) -> void:
 	# If the parent bullet still exists, add a point when it moves at least a meter
 	var distance := _prev_pos.distance_to(parent_pos)
-	if distance > 1.0:
+	if distance > 0.1:
 		_prev_pos = parent_pos
 
 		# Save position as local space

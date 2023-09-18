@@ -18,12 +18,14 @@ var _total_distance := 0.0
 @onready var _ray : RayCast3D = $RayCast3D
 
 # NOTE: Make sure min bounce distance is greater than max raycast distance
-const MIN_BOUNCE_DISTANCE := 0.5
-const MIN_RAYCAST_DISTANCE := 0.3
+const MIN_BOUNCE_DISTANCE := 0.1
+const MIN_RAYCAST_DISTANCE := 0.05
 
 func _physics_process(delta : float) -> void:
 	if not _is_setup: return
 	var is_destroyed := false
+
+	_glow.update(self.global_transform.origin)
 
 	# Move the bullet
 	var distance := _velocity.length() * delta
