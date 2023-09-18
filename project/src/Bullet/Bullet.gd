@@ -115,6 +115,6 @@ func start(bullet_type : Global.BulletType) -> void:
 	_glow = Global._scene_bullet_glow.instantiate()
 	Global._root_node.add_child(_glow)
 	_glow.global_transform.origin = self.global_transform.origin
-	_glow.start(self)
+	_glow.start(self.global_transform.origin)
 
 	_is_setup = true

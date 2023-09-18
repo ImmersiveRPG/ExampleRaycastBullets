@@ -7,14 +7,12 @@ class_name BulletGlow
 
 var _points : Array[Vector3] = []
 var _prev_pos := Vector3.ZERO
-var _immediate_mesh : ImmediateMesh = null
 var _is_parent_bullet_destroyed := false
 
-func _ready() -> void:
-	_immediate_mesh = self.mesh
+@onready var _immediate_mesh : ImmediateMesh = self.mesh
 
 func update(parent_pos : Vector3) -> void:
-	# If the parent bullet still exists, add a point when it moves at least a meter
+	# Add another point if it moved far enough
 	var distance := _prev_pos.distance_to(parent_pos)
 	if distance > 0.1:
 		_prev_pos = parent_pos
@@ -48,6 +46,5 @@ func _process(_delta : float) -> void:
 			_immediate_mesh.surface_add_vertex(b)
 	_immediate_mesh.surface_end()
 
-func start(bullet : Node3D) -> void:
-	_points.append(bullet.global_transform.origin - self.global_transform.origin)
-	self._physics_process(0.0)
+func start(parent_pos : Vector3) -> void:
+	_points.append(parent_pos - self.global_transform.origin)
