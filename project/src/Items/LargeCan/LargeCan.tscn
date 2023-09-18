@@ -22,5 +22,3 @@ shape = SubResource("1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
 mesh = SubResource("2")
-
-[connection signal="apply_force" from="." to="." method="_on_apply_force"]

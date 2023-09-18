@@ -4,12 +4,8 @@
 
 extends RigidBody3D
 
-signal apply_force(angle : Vector3, force : float)
 
 var _element := Global.Element.Aluminum
-
-func _on_apply_force(angle : Vector3, force : float) -> void:
-	self.apply_central_impulse(force * angle)
 
 func fire(target_pos : Vector3) -> void:
 	var bullet_type := Global.BulletType._308

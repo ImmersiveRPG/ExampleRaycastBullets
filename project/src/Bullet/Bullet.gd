@@ -76,7 +76,7 @@ func _physics_process(delta : float) -> void:
 		elif collider.is_in_group("item"):
 			# Nudge the object
 			var force := _mass * _velocity.length()
-			collider.emit_signal("apply_force", -self.transform.basis.z, force)
+			collider.apply_central_impulse(-self.transform.basis.z * force)
 			is_destroyed = true
 		# Hit something unexpected
 		else:

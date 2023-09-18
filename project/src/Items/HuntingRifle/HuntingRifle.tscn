@@ -67,5 +67,3 @@ material = ExtResource("3")
 
 [node name="BulletStartPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0601636, -0.600403)
-
-[connection signal="apply_force" from="." to="." method="_on_apply_force"]
