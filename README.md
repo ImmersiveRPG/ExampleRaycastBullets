@@ -1,6 +1,6 @@
 # Example Raycast Bullets
 
-Example of glowing ricocheting raycast bullets in Godot
+Example of glowing ricocheting raycast bullets in Godot 4
 
 
-[![Raycast bullets in Godot](https://img.youtube.com/vi/c5WWJmv87_o/0.jpg)](https://www.youtube.com/watch?v=c5WWJmv87_o, "Raycast bullets in Godot")
+[![Raycast bullets in Godot](https://img.youtube.com/vi/joMBVo_ZwKI/0.jpg)](https://www.youtube.com/watch?v=joMBVo_ZwKI, "Raycast bullets in Godot 4")
