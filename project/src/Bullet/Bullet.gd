@@ -17,7 +17,7 @@ var _is_setup := false
 var _total_distance := 0.0
 @onready var _ray : RayCast3D = $RayCast3D
 
-# NOTE: Make sure min bounce distance is greater than max raycast distance
+# NOTE: Make sure min bounce distance is greater than min raycast distance
 const MIN_BOUNCE_DISTANCE := 0.1
 const MIN_RAYCAST_DISTANCE := 0.05
 
